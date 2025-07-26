@@ -250,3 +250,65 @@ body.panning {
 .social-buttons .btn.link img {
   filter: invert(30%) sepia(60%) saturate(300%) hue-rotate(180deg); /* 파랑 */
 }
+
+/* ───────── 모바일 레이아웃 개선 ───────── */
+@media (max-width: 768px) {
+  /* 스크롤 막히는 문제 해결 */
+  body {
+    overflow: auto;
+  }
+
+  /* 헤더를 세로 스택으로 재배치 + 고정 */
+  header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    position: sticky; /* iOS Safari 대응용 */
+    top: 0;
+    z-index: 1000;
+  }
+
+  /* SNS 버튼은 제목 바로 아래로 */
+  .social-buttons {
+    order: 2;
+  }
+
+  /* 컨트롤 패널을 가로 스크롤 가능한 바 형태로 */
+  #controls {
+    order: 3;
+    flex-wrap: nowrap; /* 래핑 금지 */
+    overflow-x: auto; /* 가로 스크롤 허용 */
+    padding-bottom: 4px;
+    width: 100%;
+    scrollbar-width: none; /* Firefox */
+  }
+  #controls::-webkit-scrollbar {
+    display: none;
+  } /* Chrome, Safari */
+
+  /* 메인 영역을 column으로 뒤집어 전폭 사용 */
+  main {
+    flex-direction: column;
+    height: auto;
+  }
+  #legend {
+    order: 2;
+    width: 100%;
+    height: 120px;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  #workspace {
+    order: 1;
+    flex: 1;
+    height: calc(100vh - 72px - 120px); /* 헤더+레전드 높이 감안 */
+  }
+
+  /* 작은 화면에서 그리드 셀 조금 축소 */
+  .cell {
+    width: 24px;
+    height: 24px;
+  }
+}
