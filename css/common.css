@@ -1,0 +1,252 @@
+:root {
+  --bg: #fff9f9;
+  --surface: #fff;
+  --primary: #efd6d6;
+  --on: #333;
+  --border: #f3c7c7;
+  --hover: #ffecec;
+  --zoom: 1;
+  --pan-x: 0px;
+  --pan-y: 0px;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Inter", sans-serif;
+  background: var(--bg);
+  color: var(--on);
+  overflow: hidden;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+header h1 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: #7f3f3f;
+}
+#mode-label {
+  color: red;
+}
+.logo {
+  width: 36px;
+  object-fit: contain;
+}
+#controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+input[type="number"] {
+  width: 64px;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  background: #fff;
+  color: #7f3f3f;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn:hover {
+  background: var(--hover);
+}
+.label {
+  pointer-events: none;
+  background: transparent;
+  color: #fff;
+}
+main {
+  display: flex;
+  height: calc(100vh - 72px);
+}
+#legend {
+  width: 220px;
+  padding: 12px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.legend-item.selected,
+.legend-item:hover {
+  background: var(--hover);
+}
+.legend-item img {
+  width: 24px;
+  height: 24px;
+}
+#workspace {
+  flex: 1;
+  position: relative;
+  background: #fff;
+  overflow: hidden;
+}
+#viewport {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(calc(-50% + var(--pan-x)), calc(-50% + var(--pan-y)))
+    scale(var(--zoom));
+  transform-origin: center;
+}
+#grid {
+  display: grid;
+  gap: 1px;
+  background: var(--border);
+  user-select: none;
+  border: 2px dotted red;
+}
+.cell {
+  width: 30px;
+  height: 30px;
+  background: var(--surface);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.cell:hover {
+  background: var(--hover);
+}
+/* ⛔️ SVG 내부 클릭 방지 */
+.cell img,
+.cell svg {
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+}
+body.panning {
+  cursor: grabbing;
+} /* ───── 라벨 ───── */
+.h-label,
+.v-label {
+  position: absolute;
+  font-size: 11px;
+  line-height: 1;
+  color: var(--on);
+  user-select: none;
+  pointer-events: none;
+  font-weight: 800;
+}
+.corgi-logo {
+  border-radius: 20px;
+  width: 40px;
+  height: 40px;
+}
+.h-label {
+  transform: translateX(-50%);
+} /* 가로 : 아래쪽 중심 */
+.v-label {
+  transform: translateY(-50%);
+} /* 세로 : 오른쪽 중심 */
+
+/* 기존 #viewport 선언에 이어서 추가 */
+#viewport {
+  padding-right: 40px; /* 세로(오른쪽) 라벨용 공간 */
+  padding-bottom: 40px; /* 가로(아래)   라벨용 공간 */
+  overflow: visible; /* 혹시 몰라 안전빵 */
+}
+@keyframes corgi-wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(3deg);
+  }
+  75% {
+    transform: rotate(-3deg);
+  }
+}
+
+.corgi-logo {
+  border-radius: 20px;
+  width: 40px;
+  height: 40px;
+  animation: corgi-wiggle 2.5s ease-in-out infinite;
+}
+
+/* ───── 인쇄 전용 ───── */
+@media print {
+  /* 그리드(=viewport) 말고는 싹 숨김 */
+  body * {
+    visibility: hidden;
+  }
+  #viewport,
+  #viewport * {
+    visibility: visible;
+  }
+  #viewport {
+    position: absolute; /* 페이지 맨 위‑왼쪽에 붙이기 */
+    top: 0;
+    left: 0;
+    transform: none !important; /* 확대·이동 해제하고 원본 크기로 출력 */
+  }
+}
+/* CSS */
+.social-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.social-buttons .btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.social-buttons .btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.social-buttons .btn img {
+  width: 20px;
+  height: 20px;
+  filter: invert(25%) sepia(90%) saturate(300%) hue-rotate(320deg);
+}
+
+.social-buttons .btn.insta img {
+  filter: invert(20%) sepia(100%) saturate(1000%) hue-rotate(-20deg); /* 분홍 계열 */
+}
+
+.social-buttons .btn.youtube img {
+  filter: invert(18%) sepia(96%) saturate(5500%) hue-rotate(-10deg); /* 빨강 */
+}
+
+.social-buttons .btn.link img {
+  filter: invert(30%) sepia(60%) saturate(300%) hue-rotate(180deg); /* 파랑 */
+}

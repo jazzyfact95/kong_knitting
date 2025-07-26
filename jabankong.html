@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>자반콩의 니팅 클래스</title>
+    <link rel="stylesheet" href="./css/common.css" />
+    <!-- <script src="jquery"> 밑 아무 곳 -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="module" src="./js/kong.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>
+        <img src="./img/corgi.jpg" class="corgi-logo" alt="corgi" />
+        <span>자반콩의 뜨개질 도안 작업소</span>
+      </h1>
+      <!-- HTML -->
+      <div class="social-buttons">
+        <a
+          href="https://instagram.com/yourhandle"
+          class="btn insta"
+          target="_blank"
+          title="Instagram"
+        >
+          <img
+            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg"
+            alt="Instagram"
+          />
+        </a>
+        <a
+          href="https://youtube.com/yourchannel"
+          class="btn youtube"
+          target="_blank"
+          title="YouTube"
+        >
+          <img
+            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg"
+            alt="YouTube"
+          />
+        </a>
+        <a
+          href="https://yourlink.com"
+          class="btn link"
+          target="_blank"
+          title="Link"
+        >
+          <img
+            src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/link.svg"
+            alt="Link"
+          />
+        </a>
+      </div>
+
+      <div id="controls">
+        <label>가로 <input type="number" id="cols" value="20" min="1" /></label>
+        <label>세로 <input type="number" id="rows" value="20" min="1" /></label>
+        <button class="btn" id="generate">생성</button>
+        <span id="mode-label" class="btn label">도안모드 (F2)</span>
+        <button class="btn" id="mode-toggle">모드 전환</button>
+        <button class="btn" id="zoom-out">-</button>
+        <span id="zoom-label" class="btn label">100%</span>
+        <button class="btn" id="zoom-in">+</button>
+        <button class="btn" id="clear">초기화</button>
+        <button class="btn" id="save-img">이미지 저장</button>
+        <button class="btn" id="export-json">도안저장</button>
+        <button class="btn" id="import-json">도안불러오기</button>
+        <input
+          type="file"
+          id="json-file"
+          accept="application/json"
+          style="display: none"
+        />
+      </div>
+    </header>
+    <main>
+      <div id="legend"></div>
+      <div id="workspace">
+        <div id="viewport"><div id="grid"></div></div>
+      </div>
+    </main>
+  </body>
+</html>
